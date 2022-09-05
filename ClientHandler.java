@@ -82,7 +82,7 @@ public class ClientHandler implements Runnable {
         while (socket.isConnected()){
             try {
                 messageFromClient = bufferedReader.readLine();
-                broadcastMessage(clientUsername + ": " + messageFromClient);
+                broadcastMessage(messageFromClient);
             }
             catch (IOException e) {
                 closeEverything();
