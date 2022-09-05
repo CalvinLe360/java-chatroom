@@ -16,7 +16,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private int id;
-    private String clientUsername;
+    public String clientUsername;
 
     public ClientHandler(Socket socket){
         try {
@@ -33,11 +33,11 @@ public class ClientHandler implements Runnable {
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat!");
         }
         catch (IOException e){
-            closeEverything();
+            closeEverything(bufferedReader, bufferedWriter, socket);
         }
     }
 
-    public void closeEverything() {
+    public void closeEverything(BufferedReader bufferedReader, BufferedWriter bufferedWriter, Socket socket) {
         removeClientHandler();
         try {
             if (bufferedReader != null) {
@@ -70,7 +70,7 @@ public class ClientHandler implements Runnable {
                 }
             }
             catch (IOException e){
-                closeEverything();
+                closeEverything(bufferedReader, bufferedWriter, socket);
             }
         }
     }
@@ -85,7 +85,7 @@ public class ClientHandler implements Runnable {
                 broadcastMessage(messageFromClient);
             }
             catch (IOException e) {
-                closeEverything();
+                closeEverything(bufferedReader, bufferedWriter, socket);
                 break;
             }
         }

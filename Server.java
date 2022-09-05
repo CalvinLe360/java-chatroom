@@ -17,15 +17,15 @@ public class Server {
         try {
             while(!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected!");
                 ClientHandler clientHandler = new ClientHandler(socket);
+                System.out.println("A new client has connected! (" + clientHandler.clientUsername + ")");
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }
         }
         catch(IOException e){
-            System.out.println("error message: " + e.getMessage());
+            closeServerSocket();
         }
     }
 
@@ -44,6 +44,7 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
             Server server = new Server(serverSocket);
+            server.startServer();
         }
         catch (IOException e){
             e.printStackTrace();

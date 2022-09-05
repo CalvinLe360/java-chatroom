@@ -20,7 +20,7 @@ public class Client {
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }
         catch (IOException e){
-            // closeEverything();
+            closeEverything();
         }
     }
 
@@ -59,10 +59,10 @@ public class Client {
                     }
                 }
             }
-        });
+        }).start();
     }
 
-    private void closeEverything() {
+    public void closeEverything() {
         try {
             if (bufferedReader != null) {
                 bufferedReader.close();
