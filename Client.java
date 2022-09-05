@@ -37,6 +37,7 @@ public class Client {
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
+            scanner.close();
         }
         catch (IOException e){
             closeEverything();
